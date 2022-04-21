@@ -11,6 +11,7 @@ em formato `.shape` do site https://biogeo.ucdavis.edu.
 '''
 
 
+
 import cartopy.io.shapereader as shp
 import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
@@ -20,11 +21,11 @@ import os
 
 # Definição de arquivos e diretórios
 base_dir = os.path.dirname(__file__)
-maps_dir = base_dir + '/maps/'
-shape_cowntry = maps_dir + 'gadm36_BRA_0.shp' 
-shape_states = maps_dir + 'gadm36_BRA_1.shp'
-shape_cities = maps_dir + 'gadm36_BRA_2.shp'
-shape_districts = maps_dir + 'gadm36_BRA_3.shp'
+maps_dir = f'{base_dir}/maps/'
+shape_cowntry = f'{maps_dir}gadm36_BRA_0.shp'
+shape_states = f'{maps_dir}gadm36_BRA_1.shp'
+shape_cities = f'{maps_dir}gadm36_BRA_2.shp'
+shape_districts = f'{maps_dir}gadm36_BRA_3.shp'
 facecolor = '#333333'
 edgecolor = '#CCCCCC'
 crs = ccrs.PlateCarree()
@@ -94,10 +95,7 @@ def search_state(state, plot=False):
     for record in states:
         state_name = record.attributes['NAME_1']
         if pstr(state_name) == pstr(state):
-            if plot is False:
-                return record
-            else:
-                return record.geometry
+            return record if plot is False else record.geometry
 
 
 def search_city(city, state, plot=False):
@@ -114,10 +112,7 @@ def search_city(city, state, plot=False):
         state_name = record.attributes['NAME_1']
         city_name = record.attributes['NAME_2']
         if pstr(state_name) == pstr(state) and pstr(city_name) == pstr(city):
-            if plot is False:
-                return record
-            else:
-                return record.geometry
+            return record if plot is False else record.geometry
 
 
 def search_district(district, city, state, plot=False):
@@ -137,10 +132,7 @@ def search_district(district, city, state, plot=False):
         if pstr(state_name) == pstr(state) and \
            pstr(city_name) == pstr(city) and \
            pstr(district_name) == pstr(district):
-            if plot is False:
-                return record
-            else:
-                return record.geometry
+            return record if plot is False else record.geometry
 
 
 def plot_brazil(facecolor=facecolor, edgecolor=edgecolor):
